@@ -28,3 +28,15 @@
   display: flex;
   border-bottom: 1px dotted;
 }
+.clear,
+.Send {
+  width: 100px;
+  border: 0;
+  border-radius: 20px;
+}
+.clear {
+  background-color: rgb(251, 5, 5);
+}
+.Send {
+  background-color: rgb(93, 249, 9);
+}

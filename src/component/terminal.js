@@ -7,6 +7,9 @@ function inputfocus() {
   console.log('foucs');
   document.getElementById('command').focus();
 }
+function clear() {
+  document.getElementById('record').innerText = 'Cleared!!!!!!!';
+}
 function sendcommand(event) {
   //event.keyCode==13
 
@@ -94,7 +97,15 @@ export default function terminal() {
             ></input>
           </div>
         </div>
-        <button onClick={sendMessage}>Send Msg</button>
+
+        <div>
+          <button className="Send" onClick={sendMessage}>
+            Send Msg
+          </button>
+          <button className="clear" onClick={clear}>
+            Clear
+          </button>
+        </div>
       </div>
     </div>
   );
