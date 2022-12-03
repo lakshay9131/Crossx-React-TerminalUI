@@ -14,13 +14,19 @@ function sendcommand(event) {
   //event.keyCode==13
 
   console.log('sendcommand' + event);
-  console.log(event);
+  // console.log(event);
   console.log(event.charCode);
   if (event.charCode == 13) {
     if (event.target.value != '') {
       var t = event.target.value;
-      //transmitcommand(t);
-      document.getElementById('record').innerText += '>$Sent->' + t + '\n';
+      console.log(socket);
+      console.log(socket.readyState + ' ' + socket.readyState);
+      if (socket.readyState === socket.readyState) {
+        transmitcommand(t);
+        document.getElementById('record').innerText += '>$Sent->' + t + '\n';
+      } else {
+        document.getElementById('record').innerText += '>$NotSent->' + t + '\n';
+      }
     } else {
       document.getElementById('record').innerText += '>$error invalid >' + '\n';
     }
@@ -47,6 +53,16 @@ const socket = new WebSocket('ws://localhost:3000');
 // Connection opened
 socket.addEventListener('open', function (event) {
   console.log('Connected to WS Server');
+  document.getElementById('status').innerText = 'Live';
+});
+socket.addEventListener('error', function (event) {
+  console.log('Connected to error');
+  console.log(event);
+  document.getElementById('status').innerText = 'Error';
+});
+socket.addEventListener('closed', function (event) {
+  console.log('disConnected to WS Server');
+  document.getElementById('status').innerText = 'Closed';
 });
 
 // Listen for messages
@@ -79,6 +95,7 @@ export default function terminal() {
         <input id="input" type="text" />
         <button onClick={setid}>setid</button>
         <p id="id">Wait....</p>
+        <p id="status">Status-:</p>
         <div id="terminal" className="terminal" onClick={inputfocus}>
           <div id="headline" className="HeadLine">
             Terminal-Tagline
